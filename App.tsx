@@ -1,10 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+
+import { ListItem } from './src/components/listItem';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <ListItem imageUrl="https://picsum.photos/200/300" title="title" author="nekomaru" />
       <StatusBar style="auto" />
     </View>
   );
