@@ -1,14 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 
+import articles from './assets/articles.json';
 import { ListItem } from './src/components/listItem';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <ListItem imageUrl="https://picsum.photos/200/300" title="title" author="nekomaru" />
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={articles}
+        renderItem={({ item }) => (
+          <ListItem imageUrl={item.urlToImage} title={item.title} author={item.author} />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -16,7 +23,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
