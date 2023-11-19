@@ -1,45 +1,55 @@
-import axios from 'axios';
-import Constants from 'expo-constants';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
-import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { FontAwesome, FontAwesome as Icon } from '@expo/vector-icons';
+import {
+  createBottomTabNavigator,
+  BottomTabNavigationOptions,
+} from '@react-navigation/bottom-tabs';
+import { NavigationContainer, RouteProp } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ComponentProps } from 'react';
 
-import { ListItem } from './src/components/listItem';
-import { Article } from './src/types/article';
+import { ArticleScreen } from './src/screens/articleScreen';
+import { ClipScreen } from './src/screens/clipScreen';
+import { HomeScreen } from './src/screens/homeScreen';
+import { RootStackParamList } from './src/types/navigation';
 
-export default function App() {
-  const [articles, setArticles] = useState([]);
+const Stack = createStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootStackParamList>();
 
-  const fetchArticles = async () => {
-    try {
-      const response = await axios.get(Constants.expoConfig?.extra?.apiUrl);
-      setArticles(response.data.articles);
-    } catch (error) {
-      console.error(error);
+const screenOption = ({
+  route,
+}: {
+  route: RouteProp<RootStackParamList, keyof RootStackParamList>;
+}): BottomTabNavigationOptions => ({
+  tabBarIcon: ({ color, size }) => {
+    let iconName: ComponentProps<typeof Icon>['name'] | undefined;
+    switch (route.name) {
+      case 'Home':
+        iconName = 'home';
+        break;
+      case 'Clip':
+        iconName = 'bookmark';
+        break;
     }
-  };
-
-  useEffect(() => {
-    fetchArticles();
-  }, []);
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <FlatList
-        data={articles}
-        renderItem={({ item }: { item: Article }) => (
-          <ListItem imageUrl={item.urlToImage} title={item.title} author={item.author} />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-      />
-      <StatusBar style="auto" />
-    </SafeAreaView>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    return <FontAwesome name={iconName} size={size} color={color} />;
   },
 });
+
+const HomeStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Article" component={ArticleScreen} />
+    </Stack.Navigator>
+  );
+};
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator screenOptions={screenOption}>
+        <Tab.Screen name="Home" component={HomeStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Clip" component={ClipScreen} options={{ headerShown: false }} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
