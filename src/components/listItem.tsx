@@ -1,35 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-
-const styles = StyleSheet.create({
-  itemContainer: {
-    height: 100,
-    width: '100%',
-    borderColor: 'gray',
-    flexDirection: 'row',
-  },
-  leftContainer: {
-    width: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  rightContainer: {
-    flex: 1,
-    padding: 16,
-    justifyContent: 'space-between',
-  },
-  text: {
-    fontSize: 16,
-  },
-  subText: {
-    fontSize: 12,
-    color: 'gray',
-  },
-  image: {
-    width: 95,
-    height: 95,
-  },
-});
+import { Text, View, Image, TouchableOpacity } from 'react-native';
 
 type Props = {
   imageUrl: string;
@@ -40,15 +10,17 @@ type Props = {
 
 export const ListItem = ({ imageUrl, title, author, onPress }: Props) => {
   return (
-    <TouchableOpacity style={styles.itemContainer} onPress={onPress}>
-      <View style={styles.leftContainer}>
-        <Image style={styles.image} source={{ uri: imageUrl }} />
+    <TouchableOpacity
+      className="h-[100px] w-full border border-gray-200 flex-row"
+      onPress={onPress}>
+      <View className="w-[100px] items-center justify-center">
+        <Image className="w-[100px] h-[100px]" source={{ uri: imageUrl }} />
       </View>
-      <View style={styles.rightContainer}>
-        <Text numberOfLines={3} style={styles.text}>
+      <View className="flex-1 p-3 justify-between">
+        <Text numberOfLines={3} className="text-sm">
           {title}
         </Text>
-        <Text style={styles.subText}>{author}</Text>
+        <Text className="text-xs text-gray-500">{author}</Text>
       </View>
     </TouchableOpacity>
   );

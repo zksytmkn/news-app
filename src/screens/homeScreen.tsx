@@ -2,7 +2,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import axios from 'axios';
 import Constants from 'expo-constants';
 import { useEffect, useState } from 'react';
-import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 
 import { ListItem } from '../components/listItem';
 import { Article } from '../types/article';
@@ -29,7 +29,7 @@ export const HomeScreen = ({
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex-1 bg-white">
       <FlatList
         data={articles}
         renderItem={({ item }: { item: Article }) => (
@@ -45,10 +45,3 @@ export const HomeScreen = ({
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-});
