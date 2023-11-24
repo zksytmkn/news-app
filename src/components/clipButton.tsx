@@ -1,11 +1,5 @@
 import { FontAwesome } from '@expo/vector-icons';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 5,
-  },
-});
+import { TouchableOpacity } from 'react-native';
 
 type Props = {
   onPress: () => void;
@@ -15,7 +9,7 @@ type Props = {
 export const ClipButton = ({ onPress, enabled }: Props) => {
   const name = enabled ? 'bookmark' : 'bookmark-o';
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity onPress={onPress} className="p-1">
       <FontAwesome name={name} size={40} color="gray" />
     </TouchableOpacity>
   );

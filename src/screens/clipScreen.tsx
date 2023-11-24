@@ -1,6 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useAtom } from 'jotai';
-import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { SafeAreaView, FlatList } from 'react-native';
 
 import { ListItem } from '../components/listItem';
 import { clipAtom } from '../state/clip';
@@ -14,7 +14,7 @@ export const ClipScreen: React.FC<Props> = ({ navigation }: Props) => {
   const [clips] = useAtom(clipAtom);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex-1 bg-white justify-start">
       <FlatList
         data={clips}
         renderItem={({ item }) => (
@@ -30,11 +30,3 @@ export const ClipScreen: React.FC<Props> = ({ navigation }: Props) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'flex-start',
-  },
-});

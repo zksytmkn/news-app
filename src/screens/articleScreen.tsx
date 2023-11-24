@@ -1,6 +1,6 @@
 import { RouteProp } from '@react-navigation/native';
 import { useAtom } from 'jotai';
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
 
 import { ClipButton } from '../components/clipButton';
@@ -31,17 +31,9 @@ export const ArticleScreen: React.FC<Props> = ({ route }: Props) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView className="flex-1 bg-white justify-start">
       <ClipButton onPress={toggleClip} enabled={isClipped()} />
       <WebView source={{ uri: article.url }} />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'flex-start',
-  },
-});
